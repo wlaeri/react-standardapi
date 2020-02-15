@@ -1,5 +1,5 @@
 # React StandardAPI
-A React library for querying a Rails application through [StandardAPI](https://github.com/waratuman/standardapi). Requires [StandardAPI Client](https://github.com/wlaeri/standardapi-client) as a dependency.
+A React library for querying a Rails application through [StandardAPI](https://github.com/waratuman/standardapi). Requires [StandardAPI Client](https://github.com/wlaeri/standardapi-client) as a peer dependency.
 
 ## Installation
 
