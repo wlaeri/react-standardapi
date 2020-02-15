@@ -16,23 +16,19 @@ class Read extends React.Component {
   }
 
   async refetch() {
-    console.log('Hello1', this)
     this.setState({
       loading: true,
       error: null,
       data: null
     })
-    console.log('Hello2')
     try {
       const { baseModel, params } = this.props
       const client = this.context
-      console.log('Hello3')
       const response = await client.read(baseModel, params)
       const newState = {
         loading: false,
         data: response.data
       }
-      console.log('Hello4')
       this.setState(newState, () => {
         return {
           ...this.state,
@@ -40,7 +36,6 @@ class Read extends React.Component {
         }
       })
     } catch (err) {  
-      console.log('Hello5', err) 
       const newState = {
         loading: false,
         error: err
