@@ -15,11 +15,11 @@ Using yarn:
 $ yarn add react-standardapi standardapi-client
 ```
 
-## Usage
+## Implementation
 
 First the StandardAPI Client must be instantiated. Headers are optional.
 
-```node
+```react
 import StandardAPIClient from 'standardapi-client'
 
 const client = new StandardAPIClient({
@@ -33,7 +33,7 @@ const client = new StandardAPIClient({
 
 Then, the React application must be wrapped in the `<Provider />` component which passes the StandardAPI client instance to the app through React context. Then you are able to use the `<Read />` component which retrieves data from StandardAPI.
 
-```node
+```react
 import { Provider } from 'react-standardapi'
 import ReactDOM from 'react-dom'
 
@@ -64,11 +64,14 @@ const app = () => (
 
 ReactDOM.render(app, document.getElementById('root'))
 ```
+
+## Read
+
 The children of the `<Read />` component receive four props. The `loading` prop is a boolean indicating whether the request has completed or is still in flight. The `error` prop is the error object in the event the request fails. The `data` is the response payload of a successful request, and `refetch` is a function that retriggers the StandardAPI call.
 
 Data can be mutated using the client's `create`, `update`, and `destroy` methods and the data can be refetched using the `refetch` function. For example, consider the `renderTodoItem` function below.
 
-```node
+```react
 const renderTodoItem = (t, refetch) => (
   <div>
   	<h1>{ t.name }</h1>
@@ -78,16 +81,44 @@ const renderTodoItem = (t, refetch) => (
  )
  
  const deleteTodo = async (id, refetch) => {
- 	try {
+   try {
  	  await client.destroy('todos', id)
  	  refetch()
- 	} catch (e) {
+   } catch (e) {
  	  handleError(e)
  	}
  }
     
 ```
 In the above example, we use the StandardAPI client to delete a todo and then use the `refetch` function to refresh the list of todos.
+
+## BatchedLoader
+If you want to load data dynamically using pagination, you can use the `<BatchedLoader />` component. The `batchSize` prop sets the number of records returned in each batched load. 
+
+```react
+const Newsfeed = () => (
+  <Provider client={client}>
+    <BatchedLoader baseModel='articles' params={{ include: { author: true }}} batchSize={5}>
+      {({ data, error, fetchNextBatch }) => {
+        if (error) return <div>Error...</div>
+
+        return (
+          <div>
+            {
+              data.map(a => {
+                if (a.loading) return <ArticleLoader />
+                else return <ArticleCard article={a} />
+              })
+            }
+            <button onClick={fetchNextBatch}>Load More Articles</button>
+          </div>
+        )
+      }}
+    </BatchedLoader>
+  </Provider>
+)
+```
+The `<BatchedLoader />` component returns loading objects (e.g. `{ loading: true, index: 3 }`) while the query is loading which allows for rendering dummy UI before the content loads. Calling the `fetchNextBatch` function adds the next batch of loading objects onto the data array. When the query is resolved, the loading objects are replaced with the records returned from the StandardAPI call.
 
 ## Resources
 
