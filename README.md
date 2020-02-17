@@ -19,7 +19,7 @@ $ yarn add react-standardapi standardapi-client
 
 First the StandardAPI Client must be instantiated. Headers are optional.
 
-```react
+```jsx
 import StandardAPIClient from 'standardapi-client'
 
 const client = new StandardAPIClient({
@@ -33,7 +33,7 @@ const client = new StandardAPIClient({
 
 Then, the React application must be wrapped in the `<Provider />` component which passes the StandardAPI client instance to the app through React context. Then you are able to use the `<Read />` component which retrieves data from StandardAPI.
 
-```react
+```jsx
 import { Provider } from 'react-standardapi'
 import ReactDOM from 'react-dom'
 
@@ -71,7 +71,7 @@ The children of the `<Read />` component receive four props. The `loading` prop 
 
 Data can be mutated using the client's `create`, `update`, and `destroy` methods and the data can be refetched using the `refetch` function. For example, consider the `renderTodoItem` function below.
 
-```react
+```jsx
 const renderTodoItem = (t, refetch) => (
   <div>
   	<h1>{ t.name }</h1>
@@ -95,7 +95,7 @@ In the above example, we use the StandardAPI client to delete a todo and then us
 ## BatchedLoader
 If you want to load data dynamically using pagination, you can use the `<BatchedLoader />` component. The `batchSize` prop sets the number of records returned in each batched load. 
 
-```react
+```jsx
 const Newsfeed = () => (
   <Provider client={client}>
     <BatchedLoader baseModel='articles' params={{ include: { author: true }}} batchSize={5}>
