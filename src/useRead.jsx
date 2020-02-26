@@ -24,7 +24,7 @@ const useRead = (baseModel, params) => {
       }
     }
     run()
-  })
+  }, [])
 
   const refetch = async () => {
     try {
