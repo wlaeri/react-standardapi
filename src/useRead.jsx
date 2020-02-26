@@ -20,6 +20,7 @@ const useRead = (baseModel, params) => {
         if (response.data && response.data.length) setCount(response.data.length)
         else setCount(1)
       } catch (e) {
+        setLoading(false)
         setError(e)
       }
     }
@@ -38,6 +39,7 @@ const useRead = (baseModel, params) => {
       if (response.data && response.data.length) setCount(response.data.length)
       else setCount(1)
     } catch (e) {
+      setLoading(false)
       setError(e)
     }
   }
