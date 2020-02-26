@@ -11,16 +11,19 @@ const useRead = (baseModel, params) => {
   const [error, setError] = useState(null)
   const [count, setCount] = useState(0)
   
-  useEffect(async () => {
-    try {
-      const response = await client.read(baseModel, params)
-      setData(response.data)
-      setLoading(false)
-      if (response.data && response.data.length) setCount(response.data.length)
-      else setCount(1)
-    } catch (e) {
-      setError(e)
+  useEffect(() => {
+    const run = async () => {
+      try {
+        const response = await client.read(baseModel, params)
+        setData(response.data)
+        setLoading(false)
+        if (response.data && response.data.length) setCount(response.data.length)
+        else setCount(1)
+      } catch (e) {
+        setError(e)
+      }
     }
+    run()
   })
 
   const refetch = async () => {
