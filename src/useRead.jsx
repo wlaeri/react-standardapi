@@ -16,9 +16,9 @@ const useRead = (baseModel, params) => {
       try {
         const response = await client.read(baseModel, params)
         setData(response.data)
-        setLoading(false)
         if (response.data && response.data.length) setCount(response.data.length)
         else setCount(1)
+        setLoading(false)
       } catch (e) {
         setError(e)
         setLoading(false)
@@ -35,9 +35,9 @@ const useRead = (baseModel, params) => {
       setCount(0)
       const response = await client.read(baseModel, params)
       setData(response.data)
-      setLoading(false)
       if (response.data && response.data.length) setCount(response.data.length)
       else setCount(1)
+      setLoading(false)
     } catch (e) {
       setError(e)
       setLoading(false)
