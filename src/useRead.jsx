@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from 'react'
 import context from './context'
+import invariant from 'invariant'
 
 const useRead = (baseModel, params) => {
   const client = useContext(context)
@@ -22,11 +23,28 @@ const useRead = (baseModel, params) => {
     }
   })
 
+  const refetch = async () => {
+    try {
+      setLoading(true)
+      setData(null)
+      setError(null)
+      setCount(0)
+      const response = await client.read(baseModel, params)
+      setData(response.data)
+      setLoading(false)
+      if (response.data && response.data.length) setCount(response.data.length)
+      else setCount(1)
+    } catch (e) {
+      setError(e)
+    }
+  }
+
   return {
     loading,
     data,
     error,
-    count
+    count,
+    refetch
   }
 }
 
