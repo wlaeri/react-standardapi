@@ -1,6 +1,6 @@
 {
   "name": "react-standardapi",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A React library for querying a Rails application through StandardAPI.",
   "main": "build/index.js",
   "author": "Will Laeri",

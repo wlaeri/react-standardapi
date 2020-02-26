@@ -6,7 +6,7 @@ const useRead = (baseModel, params) => {
   const client = useContext(context)
   invariant(client, 'You must wrap your app in a Provider' +
       ' component in order to use the useRead hook.')
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [count, setCount] = useState(0)
