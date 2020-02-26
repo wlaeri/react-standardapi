@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { Read, Provider } from '../src'
+import { Read, StandardAPIProvider } from '../src'
 import StandardAPIClient from 'standardapi-client'
 
 const testClient = new StandardAPIClient({
@@ -14,12 +14,12 @@ function setup() {
       limit: 10
     }
   }
-  const wrapper = shallow(<Provider client={testClient}><Read /></Provider>)
+  const wrapper = shallow(<StandardAPIProvider client={testClient}><Read /></StandardAPIProvider>)
   return { wrapper, props }
 }
 
 describe('Read Test Suite', () => {
   it('Renders without crashing', () => {
-    shallow(<Provider client={testClient}><Read baseModel="availabilities" /></Provider>)
+    shallow(<StandardAPIProvider client={testClient}><Read baseModel="availabilities" /></StandardAPIProvider>)
   })
 })

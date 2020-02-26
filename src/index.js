@@ -1,10 +1,10 @@
-import Provider from './Provider'
+import StandardAPIProvider from './Provider'
 import Read from './Read'
 import BatchedLoader from  './BatchedLoader'
 import useRead from './useRead'
 
 const bundle = {
-  Provider,
+  StandardAPIProvider,
   Read,
   BatchedLoader,
   useRead

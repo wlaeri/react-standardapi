@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { BatchedLoader, Provider } from '../src'
+import { BatchedLoader, StandardAPIProvider } from '../src'
 import StandardAPIClient from 'standardapi-client'
 
 const testClient = new StandardAPIClient({
@@ -14,12 +14,12 @@ function setup() {
       limit: 10
     }
   }
-  const wrapper = shallow(<Provider client={testClient}><BatchedLoader /></Provider>)
+  const wrapper = shallow(<StandardAPIProvider client={testClient}><BatchedLoader /></StandardAPIProvider>)
   return { wrapper, props }
 }
 
 describe('BatchedLoader Test Suite', () => {
   it('Renders without crashing', () => {
-    shallow(<Provider client={testClient}><BatchedLoader baseModel="availabilities" /></Provider>)
+    shallow(<StandardAPIProvider client={testClient}><BatchedLoader baseModel="availabilities" /></StandardAPIProvider>)
   })
 })

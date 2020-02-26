@@ -31,10 +31,10 @@ const client = new StandardAPIClient({
 })
 ```
 
-Then, the React application must be wrapped in the `<Provider />` component which passes the StandardAPI client instance to the app through React context. Then you are able to use the `<Read />` component which retrieves data from StandardAPI.
+Then, the React application must be wrapped in the `<StandardAPIProvider />` component which passes the StandardAPI client instance to the app through React context. Then you are able to use the `<Read />` component which retrieves data from StandardAPI.
 
 ```jsx
-import { Provider } from 'react-standardapi'
+import { StandardAPIProvider } from 'react-standardapi'
 import ReactDOM from 'react-dom'
 
 params = {
@@ -46,7 +46,7 @@ params = {
 }
 
 const app = () => (
-  <Provider client={client}>
+  <StandardAPIProvider client={client}>
     <Read baseModel='todos' params={params}>
     {({ data, loading, error, refetch }) => {
       if (loading) return renderLoading()
@@ -59,7 +59,7 @@ const app = () => (
       )
     }}
     </Read>
-  </Provider>
+  </StandardAPIProvider>
 )
 
 ReactDOM.render(app, document.getElementById('root'))
@@ -97,7 +97,7 @@ If you want to load data dynamically using pagination, you can use the `<Batched
 
 ```jsx
 const Newsfeed = () => (
-  <Provider client={client}>
+  <StandardAPIProvider client={client}>
     <BatchedLoader baseModel='articles' params={{ include: { author: true }}} batchSize={5}>
       {({ data, error, fetchNextBatch }) => {
         if (error) return <div>Error...</div>
@@ -115,7 +115,7 @@ const Newsfeed = () => (
         )
       }}
     </BatchedLoader>
-  </Provider>
+  </StandardAPIProvider>
 )
 ```
 The `<BatchedLoader />` component returns loading objects (e.g. `{ loading: true, index: 3 }`) while the query is loading which allows for rendering dummy UI before the content loads. Calling the `fetchNextBatch` function adds the next batch of loading objects onto the data array. When the query is resolved, the loading objects are replaced with the records returned from the StandardAPI call.

@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { useRead, Provider } from '../src'
+import { useRead, StandardAPIProvider } from '../src'
 import StandardAPIClient from 'standardapi-client'
 
 const testClient = new StandardAPIClient({
@@ -14,6 +14,6 @@ const TestComponent = () => {
 
 describe('useRead Test Suite', () => {
   it('Renders without crashing', () => {
-    shallow(<Provider client={testClient}><TestComponent/></Provider>)
+    shallow(<StandardAPIProvider client={testClient}><TestComponent/></StandardAPIProvider>)
   })
 })
